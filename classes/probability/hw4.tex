@@ -1,0 +1,107 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{mathrsfs} %script font
+
+\parindent=0pt
+\parskip=10pt
+\usepackage[margin=1in]{geometry}
+
+\newcommand{\io}{\;\text{i.o.}}
+\renewcommand{\aa}{\;\text{a.a.}}
+\newcommand{\Ft}{F^\sim}
+\newcommand{\N}{\mathbf{N}}
+
+\def \B {\mathscr{B}}
+\def \F {\mathscr{F}}
+\def \Q {\mathbb{Q}}
+\def \R {\mathbf{R}}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\textsf{
+\begin{flushleft}
+\sc James K. Pringle \\
+\normalfont 550.620 \\
+Dr. Jim Fill \\
+Assignment 4 \\
+17 October 2012, Wednesday
+\end{flushleft}
+} \bigskip
+
+\begin{center}
+\bf Homework \#4 (to turn in)
+\end{center}
+
+
+Define an ``inverse'' $\Ft$ to $F$ by the recipe
+\[
+\Ft(t) := \inf\{x : F(x) \geq t\} \text{, } 0  < t < 1
+\]
+Show that $\Ft$ is 
+\begin{enumerate}
+\item[(a)]
+increasing
+\item[(b)]
+\textit{left} continuous
+\item[(c)]
+a map of $(0,1)$ into $\R$.
+\end{enumerate}
+\textit{Solution:}
+\begin{enumerate}
+\item[(a)]
+We show $\Ft$ is increasing (or more precisely, non-decreasing). Let $s,t \in (0,1)$ and assume $s \leq t$. 
+Define $A = \{x : F(x) \geq s\}$ and $B = \{ x : F(x) \geq t\}$. Clearly, if $x \in B$, then $F(x) \geq t \geq s$. It follows that $x \in A$. 
+Thus $B \subset A$. Thus $\inf A$ is a lower bound of $B$. Since $\inf B$ is the largest lower bound, $\inf B \geq \inf A$. This is equivalent to $\Ft(t) \geq \Ft(s)$. 
+Therefore $t \geq s$ implies $\Ft(t) \geq \Ft(s)$, showing $\Ft$ is increasing.
+\mbox{}~\hfill $\Box$
+\item[(b)]
+Here we show $\Ft$ is left continuous. 
+Let $\{t_n\} \subset (0,1)$ with $t_n \uparrow t$, by which we mean that $\{t_n\}$ is a monotone increasing sequence with limit $t$. 
+Since $\Ft$ is increasing by (a), it follows that $\{ \Ft(t_n)\}$ is an increasing sequence with $\Ft(t_n) \leq \Ft(t)$ for all integer $n$. Note $\Ft(t)$ is finite by (c).
+Furthermore, since $\{ \Ft(t_n)\}$ is a bounded and monotone sequence, it has a limit, call it $m$, according to the Monotone Convergence Theorem. 
+Taking the limit of $\Ft(t_n) \leq \Ft(t)$, we have
+\begin{align*}
+\lim_n F(t_n) &\leq \lim_n \Ft(t) \\
+m &\leq \Ft(t) \text{.}
+\end{align*}
+We now show $\Ft(t) \leq m$ to conclude $\Ft(t) = m = \lim_n \Ft(t_n)$. Equation (2) of the handout states 
+\[
+F(\Ft(t)) \geq t \text{.}
+\]
+Hence for all $n$, $F(\Ft(t_n)) \geq t_n$. 
+Because $\Ft$ is increasing, $\Ft(t_n) \uparrow m$, and it follows that for all $n$, $\Ft(t_n) \leq m$. 
+Furthermore, since $F$ is increasing, $F(\Ft(t_n)) \leq F(m)$. Linking the two inequalities together, it is clear $t_n \leq F(\Ft(t_n)) \leq F(m)$.
+Taking the limit we have
+\begin{align*}
+\lim_n t_n &\leq \lim_n F(m) \\
+t &\leq F(m) \text{.}
+\end{align*}
+Hence $m \in \{x : F(x) \geq t\}$, and $\inf \{x : F(x) \geq t\} = \Ft(t) \leq m$. Therefore, we conclude $\lim_n \Ft(t_n) = \Ft(t)$, and we have demonstrated left continuity for $\Ft$.
+\mbox{}~\hfill $\Box$
+\item[(c)]
+Finally we show $\Ft$ is a map of $(0,1)$ into $\R$.
+It is obvious that $\Ft$ is either a real number or infinite.
+Let $t \in (0,1)$. 
+Since $F$ is normalized, it is clear that there exists $x_1$ such that $0< F(x_1) < t$. 
+Since $F$ is increasing, $x_1$ is a lower bound to $\{x : F(x) \geq t\}$. Hence $x_1 \leq \inf \{x : F(x) \geq t\} = \Ft(t)$. 
+On the other hand, there exists $x_2$ such that $1 > F(x_2) > t$ because $F$ is normalized. 
+Clearly, $x_2 \in \{x : F(x) \geq t\}$, and $x_2 \geq \inf \{x : F(x) \geq t\} = \Ft(t)$. 
+Combining these inequalities, we have $x_1 \leq \Ft(t) \leq x_2$, which shows that $\Ft(t)$ is finite. 
+Hence $\Ft$ is a map of $(0,1)$ into $\R$.
+\mbox{}~\hfill $\Box$
+\end{enumerate}
+From the text, "one has the important switching relation $t \leq F(x) \Leftrightarrow \Ft(t) \leq x$ \dots Supply the details." In other words, we prove that $t \leq F(x)$ if and only if $\Ft(t) \leq x$.
+
+\textit{Solution: }
+First we prove the forward implication. Assume $t \leq F(x)$. Automatically $x \in \{y : F(y) \geq t\}$. Thus $x \geq \inf \{y : F(y) \geq t\} = \Ft(t)$, completing the proof of the forward implication. 
+Now we prove the backward implication.  
+Assume $\Ft(t) \leq x$. Since $F$ is increasing, we have $F(\Ft(t)) \leq F(x)$. 
+By (2) in the handout, we have $F(\Ft(t)) \geq t$.
+Thus $t \leq F(\Ft(t)) \leq F(x)$. This completes the proof of the biconditional. 
+\mbox{}~\hfill $\Box$
+
+\end{document}

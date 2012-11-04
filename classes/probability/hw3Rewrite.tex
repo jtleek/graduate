@@ -1,0 +1,140 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{mathrsfs} %script font
+\usepackage[margin=1in]{geometry}
+
+\parindent=0pt
+\parskip=10pt
+\newcommand{\io}{\;\text{i.o.}}
+\renewcommand{\aa}{\;\text{a.a.}}
+
+\def \B {\mathscr{B}}
+\def \F {\mathscr{F}}
+\def \Q {\mathbb{Q}}
+\def \R {\mathbb{R}}
+\begin{document}
+
+\thispagestyle{empty}
+
+\textsf{
+\begin{flushleft}
+\sc James K. Pringle \\
+\normalfont 550.620 \\
+Dr. Jim Fill \\
+Assignment 3 \\
+10 October 2012, Wednesday
+\end{flushleft}
+} \bigskip
+
+\begin{center}
+\bf 550.620 Homework \#3 (to turn in)
+\end{center}
+
+\begin{enumerate}
+\item[(a)] Let $E_1, E_2, \dots$ be an arbitrary sequence of events satisfying
+\[
+\mbox{(i)} \lim_n P(E_n)=0\qquad \mbox{and} \qquad \mbox{(ii)} \sum_{n} P(E_n\cap E_{n+1}^c)<\infty.
+\]
+Prove that $P(E_n\io) = 0$.  
+\item[(b)] Show that the result of part~(a) strengthens the first Borel--Cantelli Lemma by showing that it implies the first Borel--Cantelli Lemma.
+\item[(c)] Deduce that the result of part~(a) \emph{strictly} strengthens the first Borel--Cantelli Lemma by providing an explicit example of a probability space $(\Omega, \F, P)$ and a sequence of events $E_1, E_2, \dots$ such that 
+$\sum_n P(E_n) = \infty$ but the result of part~(a) allows us to conclude that $P(E_n \io) = 0$. 
+\end{enumerate}
+
+\textit{Solution:}
+\begin{enumerate}
+\item[(a)]
+First we prove a lemma that
+\[
+\bigcup_{i=n}^m E_n = \left(\bigcup_{i=n}^{m-1} (E_i \cap E_{i+1}^c)\right) \bigcup E_m
+\]
+by strong induction, starting the index at arbitrary positive integer $n$.
+The base case is for $m = n+1$, and the statement is 
+$$
+\cup_{i=n}^{n+1}E_n = \cup_{i=n}^n(E_i \cap E_{i+1}^c) \cup E_{n+1}
+$$
+Calculating on the right-hand side, 
+\begin{align*}
+\cup_{i=n}^n(E_i \cap E_{i+1}^c) \cup E_{n+1} &= (E_n \cap E_{n+1}^c) \cup E_{n+1} \\
+&= (E_n \setminus E_{n+1}) \cup E_{n+1} \\
+&= E_n \cup E_{n+1} \\
+&= \cup_{i=n}^{n+1}E_n
+\end{align*}
+as desired. Now we move to the inductive step. Suppose the statement is true for all integers $m$ with $n \leq m \leq k$. We show it is true for $m = k+1$. In particular, we show
+\[
+\cup_{i=n}^{k+1}E_n = \cup_{i=n}^k (E_i \cap E_{i+1}^c) \cup E_{k+1} 
+\text{ .}
+\]
+Working with the right-hand side, we have
+\begin{align*}
+\cup_{i=n}^k (E_i \cap E_{i+1}^c) \cup E_{k+1} 
+&= \cup_{i=n}^{k-1} (E_i \cap E_{i+1}^c) \cup (E_k \cap E_{k+1}^c) \cup E_{k+1} \\
+&= \cup_{i=n}^{k-1} (E_i \cap E_{i+1}^c) \cup E_k \cup E_{k+1} \\
+&= (\cup_{i=n}^{k-1} (E_i \cap E_{i+1}^c) \cup E_k) \cup E_{k+1} \\
+&= (\cup_{i=n}^k E_i ) \cup E_{k+1} 
+\text{ by the inductive hypothesis} \\
+&= \cup_{i=n}^{k+1} E_i
+\end{align*}
+as desired. Thus by strong induction, the statement 
+\[
+\bigcup_{i=n}^m E_n = \left(\bigcup_{i=n}^{m-1} (E_i \cap E_{i+1}^c)\right) \bigcup E_m
+\]
+is true for all integers $m > n$, and our lemma is concluded.
+
+Now we return to problem (a). Applying the probability function to both sides of the equation from the lemma and calculating a little, we have
+\begin{align*}
+P(\cup_{i=n}^m E_n)
+&= P((\cup_{i=n}^{m-1} (E_i \cap E_{i+1}^c)) \cup E_m) \\
+&\leq P(\cup_{i=n}^{m-1} (E_i \cap E_{i+1}^c)) + P(E_m) 
+\text{ by subadditivity} \\
+&\leq \left(\sum_{i=n}^{m-1} P(E_i \cap E_{i+1}^c)\right) + P(E_m) 
+\text{ by subadditivity} \\
+&\leq \left(\sum_{i=n}^{\infty} P(E_i \cap E_{i+1}^c)\right) + P(E_m)
+\text{ .}
+\end{align*}
+Now we take the limit as $m$ approaches infinity.
+\begin{align*}
+P(\cup_{i=n}^\infty E_n) 
+= \lim_{m \rightarrow \infty} P(\cup_{i=n}^m E_n)
+&\leq \lim_{m \rightarrow \infty} [ \left(\sum_{i=n}^{\infty} P(E_i \cap E_{i+1}^c)\right) + P(E_m) ] \\
+&= \sum_{i=n}^{\infty} P(E_i \cap E_{i+1}^c) + \lim_{m \rightarrow \infty} P(E_m) \\
+&= \sum_{i=n}^{\infty} P(E_i \cap E_{i+1}^c) \text{ by condition (i).}
+\end{align*}
+By condition (ii), the tail sum $\sum_{i=n}^{\infty} P(E_i \cap E_{i+1}^c)$ tends down to $0$ as $n$ approaches infinity. Taking the limit as $n$ approaches infinity where we left off, we have
+\begin{align*}
+0 
+= \lim_{n \rightarrow \infty} \sum_{i=n}^{\infty} P(E_i \cap E_{i+1}^c)
+&\geq \lim_{n \rightarrow \infty} P(\cup_{i=n}^\infty E_n) \\
+&= \lim_n\! \downarrow P(\sup_{k \geq n} E_k) \\
+&= P( \lim_n\! \downarrow \sup_{k \geq n} E_k)
+\end{align*}
+by monotone sequential continuity from above. 
+Since $0 \geq P(\displaystyle \lim_n\! \downarrow \sup_{k \geq n} E_k) = P( \limsup_n E_n) = P(E_n \io) \geq 0$, we have $P(E_n \io) = 0$.
+\mbox{}~\hfill $\Box$
+
+\item[(b)]
+The result of (a) has already been proven. Let $E_1, E_2, \dots$ be an arbitrary sequence of events satisfying $\sum_n P(E_n) < \infty$. It follows that the summand tends to $0$, or in particular  $\lim_n P(E_n)=0$. Thus condition (i) is satisfied. Furthermore, for all $n$, $E_n \cap E_{n+1}^c \subset E_n$, and $P(E_n \cap E_{n+1}^c) \leq P(E_n)$. Therefore,
+\[
+\sum_n P(E_n \cap E_{n+1}^c) \leq \sum_n P(E_n) < \infty \text{ .}
+\]
+Hence condition (ii) is satisfied. By (a), we have that $P(A_n \io) = 0$, which is also the conclusion of the first Borel-Cantelli Lemma. Clearly then, the result of (a) implies the first Borel-Cantelli Lemma.
+\mbox{}~\hfill $\Box$
+
+\item[(c)]
+Let $\Omega = (0,1]$, $\F = \B$, the Borel set on the unit interval, and $P$ be Lebesgue measure. This defines our probability space, $(\Omega, \F, P)$. Define $A_n$ to be the open interval $(0,1/n)$. Clearly $\lim_n P(A_n) = \lim_n (1/n) = 0$. Hence condition (i) holds. $A_n \cap A_{n+1}^c = (0,1/n] \cap (0,1/(n+1)]^c = (0,1/n] \cap (1/(n+1),1] = (1/(n+1),1/n]$. It follows that
+\begin{align*}
+\sum_{n = 1}^\infty P(A_n\cap A_{n+1}^c) 
+= \sum_{n=1}^\infty P((1/(n+1),1/n]) 
+&= P((1/2, 1]) + P((1/3,1/2]) + \cdots \\
+&= 1 - 1/2 + 1/2 - 1/3 + \cdots \\
+&= 1
+\text{ .}
+\end{align*}
+Since the intervals are all disjoint and probability is Lebesgue measure, it is clear that the sum is equal to $1$. Hence condition (ii) holds. Notice that $\sum_n P(A_n) = \sum_n (1/n) = \infty$. However, $P(A_n \io) = 0$ by (a). Therefore (a) strictly strengthens the first Borel-Cantelli Lemma.
+\mbox{}~\hfill $\Box$
+
+\end{enumerate}
+
+\end{document}

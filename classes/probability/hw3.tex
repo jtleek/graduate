@@ -1,0 +1,90 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{mathrsfs} %script font
+
+\parindent=0pt
+\parskip=10pt
+\newcommand{\io}{\;\text{i.o.}}
+\renewcommand{\aa}{\;\text{a.a.}}
+
+\def \B {\mathscr{B}}
+\def \F {\mathscr{F}}
+\def \Q {\mathbb{Q}}
+\def \R {\mathbb{R}}
+\begin{document}
+
+\thispagestyle{empty}
+
+\textsf{
+\begin{flushleft}
+\sc James K. Pringle \\
+\normalfont 550.620 \\
+Dr. Jim Fill \\
+Assignment 3 \\
+8 October 2012, Monday
+\end{flushleft}
+} \bigskip
+
+\begin{center}
+\bf 550.620 Homework \#3 (to turn in)
+\end{center}
+
+\begin{enumerate}
+\item[(a)] Let $E_1, E_2, \dots$ be an arbitrary sequence of events satisfying
+\[
+\mbox{(i)} \lim_n P(E_n)=0\qquad \mbox{and} \qquad \mbox{(ii)} \sum_{n} P(E_n\cap E_{n+1}^c)<\infty.
+\]
+Prove that $P(E_n\io) = 0$.  
+\item[(b)] Show that the result of part~(a) strengthens the first Borel--Cantelli Lemma by showing that it implies the first Borel--Cantelli Lemma.
+\item[(c)] Deduce that the result of part~(a) \emph{strictly} strengthens the first Borel--Cantelli Lemma by providing an explicit example of a probability space $(\Omega, \F, P)$ and a sequence of events $E_1, E_2, \dots$ such that 
+$\sum_n P(E_n) = \infty$ but the result of part~(a) allows us to conclude that $P(E_n \io) = 0$. 
+\end{enumerate}
+\textit{Solution:}
+\begin{enumerate}
+\item[(a)]
+First we prove a lemma that
+\[
+\limsup_n A_n - \liminf_n A_n = \limsup_n (A_n \cap A_{n+1}^c)
+\]
+\textit{Proof of lemma:} Calculating, it is clear that
+\begin{align*}
+\limsup_n A_n - \liminf_n A_n &= (\limsup_n A_n) \cap (\liminf_n A_n)^c \\
+&= (\bigcap_{m=1}^\infty \bigcup_{n=m}^\infty A_n) \cap (\bigcup_{m=1}^\infty \bigcap_{n=m}^\infty A_n)^c \\
+&= (\bigcap_{m=1}^\infty \bigcup_{n=m}^\infty A_n) \cap (\bigcap_{m=1}^\infty \bigcup_{n=m}^\infty A_n^c) \text{ by DeMorgan's laws}
+\end{align*}
+Our task is to show that this set is the same as
+\[
+\limsup_n (A_n \cap A_{n+1}^c) =  (\bigcap_{m=1}^\infty \bigcup_{n=m}^\infty A_n \cap A_{n+1}^c)
+\]
+Now we show set containment in both directions. Suppose $\omega \in (\cap_{m=1}^\infty \cup_{n=m}^\infty A_n \cap A_{n+1}^c)$.
+Hence, for all integer $m \geq 1$, there exists integer $n \geq m$ such that $\omega \in A_n$ and $ \omega \in A_{n+1}^c$.
+That is equivalent to the definition of $\omega$ occuring infinitely often, or that $\omega \in \limsup_n A_n = \cap_{m=1}^\infty \cup_{n=m}^\infty A_n$ and $\omega \in \limsup_n A_{n+1}^c = \cap_{m=1}^\infty \cup_{n=m}^\infty A_{n+1}^c = \cap_{m=1}^\infty \cup_{n=m}^\infty A_{n}^c$. 
+We can change the index on $A_{n+1}$ to $A_n$ because the lim sup has all outcomes that occur infinitely often. Those events happen in the diminishing tail union.
+Therefore, $\omega \in (\cap_{m=1}^\infty \cup_{n=m}^\infty A_n) \cap (\cap_{m=1}^\infty \cup_{n=m}^\infty A_n^c)$. 
+Now for set containment in the other direction. Suppose $\omega \in (\cap_{m=1}^\infty \cup_{n=m}^\infty A_n) \cap (\cap_{m=1}^\infty \cup_{n=m}^\infty A_n^c)$. 
+Thus $\omega \in \cap_{m=1}^\infty \cup_{n=m}^\infty A_n$ and $\omega \in  \cap_{m=1}^\infty \cup_{n=m}^\infty A_n^c = \limsup_n A_n^c$. 
+By definition, for all integer $M \geq 1$ there exists integer $m > M$ such that $\omega \in A_m^c$. 
+By the well-ordering principle, there exists a least integer $m'$ such that $\omega \in A_{m'}^c$. 
+It follows that $\omega \notin A_{m' - 1}^c$ and $\omega \in A_{m'-1}$. 
+Let $n = m'-1$. Hence $\omega \in A_n \cup A_{n+1}^c$, and it is clear that $\omega \in \limsup_n A_n \cup A_{n+1}^c$. Thus we have shown set containment in both directions, and we conclude that
+\[
+\limsup_n A_n - \liminf_n A_n = \limsup_n (A_n \cap A_{n+1}^c)
+\]
+to complete the lemma.
+
+Now we prove problem (a). By the lemma, $\limsup_n E_n - \liminf_n E_n = \limsup_n (E_n \cap E_{n+1}^c)$. 
+Taking probabilities, we have $P(\limsup_n A_n - \liminf_n A_n) = P(\limsup_n (A_n \cap A_{n+1}^c))$. 
+Since $\liminf_n E_n \subset \limsup_n E_n$, it follows that $P(\limsup_n E_n - \liminf_n E_n) = P(\limsup_n E_n) - P(\liminf_n E_n)$.
+By Mini-Fatou's Lemma and assumption (i) in the statement of the problem, we know that
+\[
+0 = \lim_n P(E_n) = \liminf_n P(E_n) \geq P(\liminf_n E_n) \geq 0\text{.}
+\]
+Clearly, $P(\liminf_n E_n) = 0$. Since the series in condition (ii) converges, the summand converges to $0$. 
+
+But now we can't bound $P(\limsup_n (A_n \cap A_{n+1}^c))$. This proof is flawed.
+
+\end{enumerate}
+
+\end{document}

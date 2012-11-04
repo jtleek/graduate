@@ -1,0 +1,51 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathrsfs} %script font
+
+\def \B {\mathscr{B}}
+\def \F {\mathscr{F}}
+\def \Q {\mathbb{Q}}
+\def \R {\mathbf{R}}
+
+\begin{document}
+
+\textsf{
+\begin{flushleft}
+\sc James K. Pringle \\
+\normalfont 550.620 \\
+Dr. Jim Fill \\
+Assignment 5 \\
+24 October 2012, Wednesday
+\end{flushleft}
+} \bigskip
+
+\begin{center}
+\bf Problem 13.3
+\end{center}
+
+\begin{enumerate}
+\item[(13.3)]
+Suppose that $f : \Omega \rightarrow R^1$. Show that $f$ is measurable $T^{-1}\F'$ if and only if there exists a map $\varphi: \Omega' \rightarrow R'$ such that $\varphi$ is measurable $\F'$ and $f = \varphi T$. 
+\textit{Hint:} First consider simple functions and then use Theorem 13.5.
+
+\begin{proof}
+First we prove the backward implication. Let $\varphi: \Omega' \rightarrow R'$ such that $\varphi$ is measurable $\F'$ and $f = \varphi T$. 
+By construction $T$ is measurable $T^{-1}\F' / \F'$ and by assumption, $\varphi$ is measurable $\F' / R^1$. 
+Hence, by theorem 13.1 (ii), $f = \varphi T$ is measurable $T^{-1} \F' / R^1$ as desired.
+
+Now we show the forward implication. Let $f$ be measurable $T^{-1}\F'$. The rest of this proof comes from "Notes on the Problems" in Billingsley. 
+By Theorem 13.5, there exist simple functions $f_n$, measurable $T^{-1}\F'$, such that $f_n(\omega) \rightarrow f(\omega)$ for each $\omega$. 
+Since $f_n$ is simple and measurable $T^{-1}\F'$, we can write $f_n = \sum_i x_{ni} I_{A_{ni}}$ with $A_{ni} \in T^{-1}\F'$. 
+Take $A_{ni}' \in \F'$ so that $A_i = T^{-1}A_{ni}'$ and set $\varphi_n = \sum_i x_{ni} I_{A_{ni}'}$.
+By construction $\varphi_n$ is measurable $\F'$.
+It follows that $f_n = \varphi_n T$ for all $n$.
+Taking the limit of both sides, we have $f = \varphi T$.
+Let $C'$ be the set of $\omega'$ for which $\varphi_n(\omega')$ has a finite limit, and define $\varphi(\omega') = \lim_n \varphi_n(\omega')$ for $\omega' \in C'$ and $\varphi(\omega') = 0$ for $\omega' \notin C'$.
+Since $f_n \rightarrow f$ for all $\omega \in \Omega$, it follows that $T(\Omega) \subset C'$. Finally, $C' \in \F'$, therefore, $\varphi$ is measurable $\F'$ by Theorem 13.4 (iii).
+\end{proof}
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,157 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+
+\begin{document}
+
+\textsf{
+\begin{flushleft}
+\sc James K. Pringle \\
+\normalfont 140.751 \\
+Dr. Brian Caffo \\
+Assignment 1 \\
+28 September 2012, Friday
+\end{flushleft}
+} \bigskip
+
+\begin{enumerate}
+
+
+
+\item[2.10] The (lower) incomplete gamma function is defined as $\Gamma(k,c)=\int_0^cx^{k-1}e^{-x}dx$. By convention $\Gamma(k,\infty)$, the complete gamma function, is written $\Gamma(k)$. Consider a density
+\[
+\frac{1}{\Gamma(\alpha)}x^{\alpha-1}e^{-x} \textsf{ for } x>0
+\]
+where $\alpha$ is a known number.
+
+\begin{enumerate}
+
+
+
+\item[a.] Argue that this is a valid density.
+
+\textit{Solution:} Listed above in the statement of problem a is a density. Call it $f(x)$. To show that it is a valid density we need to show that $f(x) > 0$ and $\int_{-\infty}^\infty f(x)dx = 1$. First, we show that $f(x)$ is nonnegative. We examine each factor of $f(x)$ and show they are nonnegative. The function $\Gamma(k)$ is nonnegative because its integrand, $x^{k-1}e^{-x}$, is nonnegative when evaluated on nonnegative $x$ values. Thus the other two factors of $f(x)$, which are precisely $x^{\alpha-1}e^{-x}$, are nonnegative. Thus each factor of $f(x)$ is positive. Now for the integral condition. It follows that
+\[
+\int_{-\infty}^\infty f(x)dx = \int_{0}^\infty \frac{1}{\Gamma(\alpha)}x^{\alpha-1}e^{-x} dx =   \frac{\int_{0}^\infty x^{\alpha-1}e^{-x}dx}{\Gamma(\alpha)} = \frac{\Gamma(\alpha)}{\Gamma(\alpha)}=1
+\]
+And hence $f(x)$ is a density.
+
+\item[b.] Write out the survival function associated with this density using gamma functions.
+
+\textit{Solution:} The survival function $S(x) = 1 - F(x)$, and $F(x) = \int_0^x \frac{1}{\Gamma(\alpha)}x^{\alpha-1}e^{-x}dx$ for $x>0$. Thus $S(x) = 1 - \int_0^x \frac{1}{\Gamma(\alpha)}x^{\alpha-1}e^{-x}dx =\frac{1}{\Gamma(\alpha)} \int_0^x x^{\alpha-1}e^{-x}dx=\frac{1}{\Gamma(\alpha)} \Gamma(\alpha,x)$.
+
+\item[c.] Let $\beta$ be a known number; argue that
+\[
+\frac{1}{\beta^\alpha\Gamma{\alpha}}x^{\alpha-1}e^{-x/\beta} \textsf{ for } x>0
+\]
+is a valid density. This is known as the \textbf{gamma density}.
+
+\textit{Solution:} By the similar reasoning as in a, we know that the new density function is nonnegative. From the above work, and using a $u$-substition, $u=x/\beta$ and $u \beta = x$ we have
+
+\begin{align*}
+\int_{0}^\infty\frac{1}{\beta^\alpha\Gamma(\alpha)}x^{\alpha-1}e^{-x/\beta}dx
+&= \int_{0}^\infty\frac{1}{\beta^\alpha\Gamma(\alpha)}(u\beta)^{\alpha-1}e^{-u}\beta du \\
+&= \int_{0}^\infty \frac{1}{\Gamma(\alpha)}u^{\alpha-1}e^{-u} du = 1
+\end{align*}
+Thus we see that this new density is just a transformation of the original gamma density.
+
+\item[d.] Plot the density for different values of $\alpha$ and $\beta$.
+
+\end{enumerate}
+
+\item[2.15] Let $U$ be a uniform $(0,1)$ random variable. Calculate the distribution function and density of $U^p$ where $p$ is a power. What is the name of this density?
+
+\textit{Solution:} Let $V=U^p$. The distribution function of $V$ is $F(x) = P(V \leq x) = P(U^p \leq x) = P(U \leq x^{1/p})$. It is given that the distribution of $U$ is
+\[
+G(x)=
+\begin{cases}
+0 & \text{if $x < 0$,} \\
+x & \text{if $0 \leq x \leq 1$,} \\
+1 & \text{if $x > 1$}
+\end{cases}
+\]
+To find $F(x)$ we looke at $G(x^{1/p})$. Hence if $p$ is positive, we have
+\[
+F(x) =
+\begin{cases}
+0 & \text{if $x < 0$,} \\
+x^{1/p}& \text{if $0 \leq x^{1/p} \leq 1$, or $0 \leq x \leq 1$} \\
+1 & \text{if $x > 1$}
+\end{cases}
+\]
+and the density function is $f(x) = \frac{1}{p}x^{1/p - 1}$ for $x \in (0,1)$ and $0$ elsewhere. 
+
+\item[4.4] A particularly sadistic warden has three prisoners, A, B and C. He tells prisoner C that the sentences are such that two prisoners will be executed and let one free, though he will not say who has what sentence. Prisoner C convinces the warden to tell him the identity of one of the prisoners to be executed. The warden has the following strategy, which prisoner C is aware of. If C is sentenced to be let free, the warden flips a coin to pick between A and B and tells prisoner C that person’s sentence. If C is sentenced to be executed he gives the identity of whichever of A or B is also sentenced to be executed.
+
+\begin{enumerate}
+
+\item[a.] Does this new information about one of the other prisoners give prisoner C any more information about his sentence?
+
+\textit{Solution:} Let $A, B, C$ be the event that prisoner A, B, C, respectively, is condemned, and the complement be the event that the prisoner is set free. It doesn't matter which prisoner C is told about, so let's say A. Hence, if C learns something about A, we can model that with conditional probability. $P(C | A) = P(C \cap A) / P(A) = (1/3) / (2/3) = 1/2$. Also, $P(C | A^C) = P(C \cap A^C) / P(A^C) = (1/3) / (1/3) = 1$. Hence if A is condemned, then we would expect C has a one half chance of dying, and if A is set free, then C is surely going to die. Thus this knowledge doesn't really add any information.
+
+\item[b.] The warder offers to let prisoner C switch sentences with the other prisoner whose sentence he has not identified. Should he switch?
+
+\textit{Solution:} Of course he should switch if A is condemned to die. In that case the probability B lives is $P(B^C | A) = P(B \cap A)/P(A) = 1/2$ which is a higher probability than the $1/3$ that C has initially. If A is set free, then it doesn't matter what C does because he will surely die.
+
+\end{enumerate}
+
+\item[7.5] Suppose that DBPs drawn from a certain population are normally distributed with a mean of 90 mmHg and standard deviation of 5 mmHg. Suppose that 1,000 people are drawn from this population.
+
+\begin{enumerate}
+
+\item[a.] If you had to guess the number of people having DBPs less than 80 mmHg what would you guess?
+
+\textit{Solution:} People with less than 80mmHg DBP have a z-score less than -2. If I had to guess, I would guess $P(z < -2) = \texttt{pnorm}(-2)=0.02275$.
+
+\item[b.] You draw 25 people from this population. What’s the probability that the sample average is larger than 92 mmHg?
+
+\textit{Solution:} $\bar{X} \sim N(\mu, \sigma^2/n)$.  The z-score for such a sample average is $z = \frac{\hat{\mu} - \mu}{\sigma / \sqrt{n}}=\frac{92-90}{5/5}=2$. And $P(z > 2) = P(z < -2) = 0.02275$.
+
+\item[c.] You select 5 people from this population. What’s the probability that 4 or more of them have a DBP larger than 100 mmHg?
+
+\textit{Solution:} This is precisely the sum of the probabilities that four of the five have a DBP larger than 100 and that five of the five have DBP larger than 100. Since 100 mmHg is a z-score of 2, $P(DBP > 100) = P(Z > 2) = 0.02275$. Thus the sum of two probabilities above is $P(\text{five of five DBP} > 100) + P(\text{four of five DBP} > 100) = P(z > 2)^5 + \binom{5}{1}P(z > 2)^4(1-P(z > 2))=5\cdot 0.02275^4\cdot(1-0.02275)=1.314978e-06$.
+
+\end{enumerate}
+
+\item[8.6] Often infection rates per time at risk are modelled as Poisson random variables. Let $X$ be the number of infections and let $t$ be the person days at risk. Consider the Poisson mass function $(t\lambda)^x e ^{-t \lambda}/x!$. The parameter $\lambda$ is called the population incident rate.
+
+\begin{enumerate}
+
+\item[A.] Derive the ML estimate for $\lambda$.
+
+\textit{Solution:} First we take the log of the mass function, then we differentiate with respect to $\lambda$ since we want to maximize the mass function by varying $\lambda$. Calculating, $\log ((t\lambda)^x e ^{-t \lambda}/x!) = x \log (t\lambda) - t \lambda - \log x!$. Differentiating and setting it equal to 0, then solving for $\lambda$ we have
+\begin{align*}
+x (1/(t \lambda)) t - t&=0 \\
+x (1/(t \lambda)) &=1 \\
+x/t &= \lambda
+\end{align*}
+
+\item[B.] Suppose that $5$ infections are recorded per $1000$ person-days at risk. Plot the likelihood.
+
+\textit{Solution:} We will plot $f(\lambda)=(1000\lambda)^5e^{-1000\lambda}/5!$.
+
+\item[C.] Suppose that five independent hospitals are monitored and that the infection rate $(\lambda)$ is assumed to be the same at all five. Let $X_i$, $t_i$ be the count of the number of infections and person days at risk in hospital $i$. Derive the ML estimate of $\lambda$.
+
+\textit{Solution:} Because the hospitals are assumed independent, the joint mass density function is 
+\[
+\prod_{i=1}^5 \frac{(t_i \lambda)^{x_i}e^{-t_i \lambda}}{x_i}
+\]
+As before, we will take the log, then the derivative with respect to $\lambda$. The log of the density is 
+\[
+\log (\prod_{i=1}^5 \frac{(t_i \lambda)^{x_i}e^{-t_i \lambda}}{x_i}) = \sum_{i=1}^5(x_i \log(t_i \lambda) - t_i \lambda - \log(x_i!))
+\]
+Setting the derivative equal to 0, we have
+\begin{align*}
+\frac{d}{d \lambda} (\sum_{i=1}^5(x_i \log(t_i \lambda) - t_i \lambda - \log(x_i!))) &= 0 \\
+\sum_{i=1}^5 (x_i / \lambda - t_i)&= 0 \\
+\sum_{i=1}^5 x_i / \sum_{i=1}^5 t_i = \lambda
+\end{align*}
+is the ML estimate of $\lambda$.
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+\end{document}
