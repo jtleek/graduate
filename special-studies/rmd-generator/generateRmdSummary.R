@@ -9,9 +9,83 @@ plot(model)
 
 # ?plot.lm
 
-getLmSummary <- function(model)
+writeHeader <- function(string, headerLevel, hashOnly = FALSE)
 {
-  get
+  if (length(string) != 1)
+  {
+    stop("invalid string vector length: ", length(string))
+  }
+  if (length(headerLevel) != 1)
+  {
+    stop("invalid integer vector length: ", length(headerLevel))
+  }
+  if (class(string) != "character")
+  {
+    stop("invalid string object class: ", class(string))
+  }
+  if (class(headerLevel) != "numeric" && class(headerLevel) != "integer" )
+  {
+    stop("invalid header class: ", class(headerLevel))
+  }
+  if (headerLevel < 1 || headerLevel > 7)
+  {
+    stop("invalid header level: ", headerLevel)
+  }
+  
+  headerLevel <- round(headerLevel)
+  
+  if (hashOnly || headerLevel > 2) 
+  {
+    frontHashes <- paste(rep("#", headerLevel), collapse="")
+    header <- paste0(frontHashes, "\t", string)
+    return(header)
+  }
+  else
+  {
+    delimitChar <- "=" 
+    if (headerLevel == 2)
+    {
+      delimitChar <- "-"
+    }
+    nChar <- nchar(string)
+    bottomDelimiter <- paste(rep(delimitChar, nChar), collapse="")
+    header <- paste0(string, "\n", bottomDelimiter)
+    return(header)
+  }
+}
+
+writeCodeChunk <- function(codeVec, chunkName = "")
+{
+  if (class(codeVec) != "character")
+  {
+    stop("invalid code class: ", class(codeVec))
+  }
+  if (class(chunkName) != "character")
+  {
+    stop("invalid chunk name class: ", class(chunkName))
+  }
+  if (length(chunkName) != 1)
+  {
+    stop("invalid chunk name length: ", length(chunkName))
+  }
+  chunk <- "```{r"
+  if (chunkName != "")
+  {
+    chunk <- paste(chunk, chunkName)
+  }
+  chunk <- paste0(chunk, "}\n")
+  for (i in 1:length(codeVec))
+  {
+    chunk <- paste0(chunk, codeVec[i])
+    chunk <- paste0(chunk, "\n")
+  }
+  chunk <- paste0(chunk,"```")
+  return(chunk)
+}
+
+generateLmSummary <- function(model)
+{
+  
   variableVec <- attr(attr(model$terms,"factors"),"dimnames")[[1]]
   
   save(model, file="model.RData")
@@ -36,7 +110,7 @@ generateRmdSummary <- function(model)
 {
   if (class(model) == "lm")
   {
-    getLmSummary(model)
+    generateLmSummary(model)
   }
   else
   {
