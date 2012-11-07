@@ -24,3 +24,9 @@ yVals <- rnorm(100) + xVals
 model <- lm(yVals ~ xVals)
 plot(model)
 ```
+
+Another test `r model$call`
+
+```{r}
+model$call
+```

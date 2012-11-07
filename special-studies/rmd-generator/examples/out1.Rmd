@@ -1,0 +1,52 @@
+Analysis of a Linear Model
+==========================
+
+```{r importData}
+load("model.RData")
+```
+
+Introduction
+------------
+
+A linear regression analysis was performed in R, using the function `lm`. The data was fitted to the following model
+
+```{r}
+model$call
+```
+
+Graphs
+------
+
+The following explanatory graphs will be presented unashamedly without commentary.
+
+```{r}
+plot(model)
+```
+
+Data Analysis
+-------------
+
+Next we show the analysis of the data.
+
+```{r}
+summary(model)
+```
+
+Notice that the p-value is 
+
+```{r}
+f <- summary(model)$fstatistic
+pValue <- pf(f[1], f[2], f[3], lower=FALSE)
+pValue
+```
+
+Conclusions
+-----------
+
+The results are statistically significant because of the p-value `r pValue`.
+
+Appendix
+--------
+
++	[model.RData](model.RData)
++	[model.csv](model.csv)
